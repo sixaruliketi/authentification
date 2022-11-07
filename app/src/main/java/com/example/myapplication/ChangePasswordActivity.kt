@@ -36,7 +36,11 @@ class ChangePasswordActivity : AppCompatActivity() {
         changeButton.setOnClickListener {
             val password = changePasswordEditText.text.toString()
 
-            auth.currentUser?.updatePassword(password)
+            if (password.isEmpty() || password.length < 7){
+                Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            FirebaseAuth.getInstance().currentUser?.updatePassword(password)
                 ?.addOnCompleteListener { task ->
                 if (task.isSuccessful){
                     Toast.makeText(this, "password is updated!", Toast.LENGTH_SHORT).show()

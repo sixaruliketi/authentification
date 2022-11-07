@@ -53,14 +53,25 @@ class LoginActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
-                if (task.isSuccessful){
-                    startActivity(Intent(this, ProfileActivity::class.java))
-                    finish()
-                } else {
-                    Toast.makeText(this, "error!", Toast.LENGTH_SHORT).show()
+            FirebaseAuth.getInstance()
+                .signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener{ task ->
+                    if (task.isSuccessful){
+                        goToProfile()
+                    } else{
+                        Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
+                    }
+
                 }
-            }
+
+//            auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
+//                if (task.isSuccessful){
+//                    startActivity(Intent(this, ProfileActivity::class.java))
+//                    finish()
+//                } else {
+//                    Toast.makeText(this, "error!", Toast.LENGTH_SHORT).show()
+//                }
+//            }
 
         }
 
@@ -71,5 +82,10 @@ class LoginActivity : AppCompatActivity() {
         loginForgotPasswordButton.setOnClickListener {
             startActivity(Intent(this, ForgotPasswordActivity::class.java))
         }
+    }
+
+    private fun goToProfile() {
+        startActivity(Intent(this,ProfileActivity::class.java))
+        finish()
     }
 }

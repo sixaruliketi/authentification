@@ -12,7 +12,7 @@ class ProfileActivity : AppCompatActivity() {
     lateinit var profileChangePasswordButton : Button
     lateinit var profileLogoutButton : Button
 
-    val firebaseAuth = FirebaseAuth.getInstance()
+    private val firebaseAuth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,12 +30,12 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun profileListeners() {
         profileChangePasswordButton.setOnClickListener {
-
             startActivity(Intent(this, ChangePasswordActivity::class.java))
         }
 
         profileLogoutButton.setOnClickListener {
-            firebaseAuth.signOut()
+            FirebaseAuth.getInstance().signOut()
+//            firebaseAuth.signOut()
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
         }

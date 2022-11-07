@@ -44,10 +44,20 @@ class RegistrationActivity : AppCompatActivity() {
             val email = registrationEmailEditText.text.toString()
             val password = registrationPasswordEditText.text.toString()
 
-            if (email.isEmpty() || password.length < 4){
+            if (email.isEmpty() || password.isEmpty()){
                 Toast.makeText(this, "error!", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
+
+            FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful){
+                        startActivity(Intent(this, LoginActivity::class.java))
+                        finish()
+                    } else {
+                        Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
+                    }
+                }
 
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task->

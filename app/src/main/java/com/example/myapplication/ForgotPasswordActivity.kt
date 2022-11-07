@@ -37,13 +37,22 @@ class ForgotPasswordActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            firebaseAuth.sendPasswordResetEmail(email).addOnCompleteListener { task ->
-                if (task.isSuccessful){
-                    Toast.makeText(this, "check email!", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(this, "error!", Toast.LENGTH_SHORT).show()
+            FirebaseAuth.getInstance().sendPasswordResetEmail(email)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful){
+                        Toast.makeText(this, "success", Toast.LENGTH_SHORT).show()
+                    } else{
+                        Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
+                    }
                 }
-            }
+//            firebaseAuth.sendPasswordResetEmail(email)
+//                .addOnCompleteListener { task ->
+//                if (task.isSuccessful){
+//                    Toast.makeText(this, "check email!", Toast.LENGTH_SHORT).show()
+//                } else {
+//                    Toast.makeText(this, "error!", Toast.LENGTH_SHORT).show()
+//                }
+//            }
         }
     }
 }
